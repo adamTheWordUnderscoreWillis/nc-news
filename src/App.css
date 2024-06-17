@@ -5,6 +5,7 @@
   text-align: center;
 }
 
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -39,4 +40,21 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.Header{
+  border: red solid 3px;
+}
+
+.Article{
+  border: rgb(0, 204, 255) solid 3px;
+  
+}
+.Articles{
+  border: rgb(157, 0, 255) solid 3px;
+
+}
+.User{
+  border: rgb(255, 111, 0) solid 3px;
+
 }
