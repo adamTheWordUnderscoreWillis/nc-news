@@ -5,43 +5,6 @@
   text-align: center;
 }
 
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
 .Header{
   border: red solid 3px;
 }
@@ -57,4 +20,25 @@
 .User{
   border: rgb(255, 111, 0) solid 3px;
 
+}
+
+.articleImg{
+ max-height: 20vh;
+ max-width: 20vh;
+  
+}
+.articleHolder {
+  display:flex;
+  flex-wrap:wrap;
+}
+
+.articleCard{
+  
+  padding: 2rem;
+  margin: 1rem;
+  max-width: 20vw;
+  min-width: 15vw;
+  min-height: 15vh;
+  max-heigh: 20vh;
+  border: rgb(157, 0, 255) solid 3px;
 }
