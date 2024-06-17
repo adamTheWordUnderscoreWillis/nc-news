@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react"
 import { GetArticles } from "../api"
+import { Link } from "react-router-dom"
+
+
 const Articles =()=>{
-const [articles, setArticles] = useState([])
 const [isLoading, setIsLoading] = useState(true)
+const [articles, setArticles] = useState([])
 
 useEffect(()=>{
     setIsLoading(true)
@@ -10,20 +13,26 @@ useEffect(()=>{
         setArticles(articles);
         setIsLoading(false);
         })
-
 }, [])
- console.log(articles)
+
+if(isLoading){
+    return (<h3>Give me a second... for christ sake...</h3>)
+    
+}
     return (
         <div className="Articles">
             <h2>Coolest New Articles</h2>
             <section className="articleHolder">
                 {articles.map((article)=>{
                     return(
-                    <div key={article.article_id} className = "articleCard">
-                        <img className="articleImg" src={article.article_img_url} alt={article.title} />
-                        <h3 className="cardTitle">{article.title}</h3>
-                        <p className="classTopic">{article.topic}</p>
-                    </div>
+                    <Link to={`/articles/${article.article_id}`}
+                    key={article.article_id} 
+                    className = "articleCard">
+                        <img id={article.article_id} className="articleImg" src={article.article_img_url} alt={article.title} />
+                        <h3 id={article.article_id} className="cardTitle">{article.title}</h3>
+                        <p id={article.article_id} className="classTopic">{article.topic}</p>
+                        
+                    </Link>
                     )
 
                 })

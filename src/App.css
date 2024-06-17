@@ -1,25 +1,37 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
+body{
+  background-color: rgb(0, 0, 0);
+  color: whitesmoke
+}
 
 .Header{
-  border: red solid 3px;
+  border: rgb(255, 255, 255) solid 3px;
 }
 
 .Article{
-  border: rgb(0, 204, 255) solid 3px;
+  border: rgb(255, 255, 255) solid 3px;
   
 }
 .Articles{
-  border: rgb(157, 0, 255) solid 3px;
+  border: rgb(255, 255, 255) solid 3px;
 
 }
 .User{
-  border: rgb(255, 111, 0) solid 3px;
+  border: rgb(255, 255, 255) solid 3px;
 
+}
+
+h1{
+  color: rgb(204, 116, 255);
+}
+h2{
+  color: rgb(255, 116, 139) ;
 }
 
 .articleImg{
@@ -41,4 +53,12 @@
   min-height: 15vh;
   max-heigh: 20vh;
   border: rgb(157, 0, 255) solid 3px;
+}
+article{
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.articleItem{
+  display: block;
+  padding: 1em;
 }
