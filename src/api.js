@@ -21,3 +21,11 @@ export const GetArticleById = (articleID)=> {
     })
 }
 
+export const getCommentsByArticleID = (articleID)=>{
+    return newsApi
+    .get(`/api/articles/${articleID}/comments`)
+    .then((res)=>{
+        return res.data;
+    })
+}
+
