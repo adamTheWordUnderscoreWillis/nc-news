@@ -8,6 +8,7 @@ import User from './components/User';
 
 
 function App() {
+  const [user, setUser] = useState("grumpy19")
   
 
 
@@ -16,7 +17,7 @@ function App() {
       <Header/>
       <Routes>
       <Route path="/" element={<Articles />} />
-      <Route path="/articles/:articleId" element={<ArticleById/>} />
+      <Route path="/articles/:articleId" element={<ArticleById user={user}/>} />
       <Route path="/profile/:user" element={<User/>} />
 
       </Routes>
