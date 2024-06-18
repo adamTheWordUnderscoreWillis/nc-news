@@ -28,4 +28,12 @@ export const getCommentsByArticleID = (articleID)=>{
         return res.data;
     })
 }
+export const UpdatevoteByCommentId = (articleID, userThumb)=>{
+    const incrementValue = {inc_votes: userThumb}
+    return newsApi
+    .patch(`/api/articles/${articleID}`, incrementValue)
+    .then((res)=>{
+        console.log(res.data)
+    })
+}
 
