@@ -33,7 +33,17 @@ export const UpdatevoteByCommentId = (articleID, userThumb)=>{
     return newsApi
     .patch(`/api/articles/${articleID}`, incrementValue)
     .then((res)=>{
-        console.log(res.data)
+    })
+}
+export const addCommentbyArticleId = (articleID, user, comment)=>{
+    const commentRequest = {
+        username: user,
+        body: comment
+    }
+
+    return newsApi
+    .post(`/api/articles/${articleID}/comments`, commentRequest)
+    .then((res)=>{
     })
 }
 
