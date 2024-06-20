@@ -6,9 +6,9 @@ const newsApi = axios.create({
     baseURL: "https://adam-willis-cool-news-hub.onrender.com",
 });
 
-export const GetArticles = ()=> {
+export const GetArticles = (topic)=> {
     return newsApi
-    .get("/api/articles")
+    .get("/api/articles", {params: {topic : topic}})
     .then(({data})=>{
         return data;
     })

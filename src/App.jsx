@@ -11,6 +11,7 @@ import { Nav } from './components/Nav';
 function App() {
   const [user, setUser] = useState("grumpy19")
   const [isLoading, setIsLoading] = useState(true)
+
   
 
 
@@ -19,7 +20,8 @@ function App() {
       <Header/>
       <Nav/>
       <Routes>
-      <Route path="/" element={<Articles isLoading={isLoading} setIsLoading={setIsLoading} />} />
+      <Route path="/" element={<Articles isLoading={isLoading} setIsLoading={setIsLoading}/>} />
+      <Route path="/:topic" element={<Articles isLoading={isLoading} setIsLoading={setIsLoading}/>} />
       <Route path="/articles/:articleId" element={<ArticleById user={user} isLoading={isLoading} setIsLoading={setIsLoading}/>} />
       <Route path="/profile/:user" element={<User/>} />
 
