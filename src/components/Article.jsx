@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { GetArticleById, UpdatevoteByCommentId, addCommentbyArticleId, getCommentsByArticleID } from "../api"
-const ArticleById =({user})=>{
+import { Comments } from "./comments"
+const ArticleById =({user, isLoading, setIsLoading})=>{
 const [selectedArticle , setSelectedArticle] = useState("")
 const [articleVotes, setArticleVotes] = useState()
-const [isLoading, setIsLoading] = useState(true)
 const [err, setErr] = useState(null);
 
 const [articleComments, setArticleComments] = useState([])
@@ -127,10 +127,14 @@ const handleArticleVoteChange = (event) => {
             }
         }
 }
-    
-    if(isLoading){
-        return (<h3>Give me a second... for christ sake...</h3>)
-    }
+if(isLoading){
+    return (
+        <>
+        <img className="loader" src="/src/assets/BusinessAdam.png" alt="" />
+        <h3>Give me a second... for christ sake...</h3>
+        </>
+    )
+}
     return (
         <>
             <article >
@@ -150,26 +154,7 @@ const handleArticleVoteChange = (event) => {
                     <img src={selectedArticle.article_img_url} alt={selectedArticle.title} />
                 </div>
             </article>
-            <form onSubmit={handleCommentSubmit}>
-                <p className="Error">{err}</p>
-                <label htmlFor="newComment">Write comment: </label>
-                <input onChange={handleNewCommentChange} type="text" name="" id="newComment" />
-                <button type="submit">Post comment</button>
-            </form>
-            <ul className="commentSection">
-                {articleComments.map((comment)=>{
-                    return (<li key={comment.comment_id} className="commentCard">
-                        <header className="commentHeader">
-                            <h5 className="commentHeaderAuthor">{comment.author}</h5>
-                            <p className="commentHeaderDate">{comment.created_at}</p>
-                        </header>
-                        <p className="commentBody">{comment.body}</p>
-                        <p className="commentVote">Votes: {comment.votes}</p>
-
-                    </li>)
-
-                })}
-            </ul>
+           {<Comments err={err} setErr={setErr} user={user} isLoading={isLoading} setIsLoading={setIsLoading}/>}
         </>
 )
 }
