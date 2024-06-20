@@ -9,6 +9,7 @@ import User from './components/User';
 
 function App() {
   const [user, setUser] = useState("grumpy19")
+  const [isLoading, setIsLoading] = useState(true)
   
 
 
@@ -16,8 +17,8 @@ function App() {
     <>
       <Header/>
       <Routes>
-      <Route path="/" element={<Articles />} />
-      <Route path="/articles/:articleId" element={<ArticleById user={user}/>} />
+      <Route path="/" element={<Articles isLoading={isLoading} setIsLoading={setIsLoading} />} />
+      <Route path="/articles/:articleId" element={<ArticleById user={user} isLoading={isLoading} setIsLoading={setIsLoading}/>} />
       <Route path="/profile/:user" element={<User/>} />
 
       </Routes>

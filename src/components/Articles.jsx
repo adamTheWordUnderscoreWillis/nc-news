@@ -3,8 +3,8 @@ import { GetArticles } from "../api"
 import { Link } from "react-router-dom"
 
 
-const Articles =()=>{
-const [isLoading, setIsLoading] = useState(true)
+const Articles =({isLoading, setIsLoading})=>{
+
 const [articles, setArticles] = useState([])
 
 useEffect(()=>{
@@ -16,7 +16,13 @@ useEffect(()=>{
 }, [])
 
 if(isLoading){
-    return (<h3>Give me a second... for christ sake...</h3>)
+    
+    return (
+    <>
+    <img className="loader" src="/src/assets/BusinessAdam.png" alt="" />
+    <h3>Give me a second... for christ sake...</h3>
+    </>
+)
     
 }
     return (

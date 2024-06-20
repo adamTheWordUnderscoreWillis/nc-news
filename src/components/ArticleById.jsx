@@ -2,12 +2,14 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { GetArticleById, UpdatevoteByCommentId, addCommentbyArticleId, getCommentsByArticleID } from "../api"
 import { Comments } from "./comments"
-const ArticleById =({user})=>{
+const ArticleById =({user, isLoading, setIsLoading})=>{
 const [selectedArticle , setSelectedArticle] = useState("")
 const [articleVotes, setArticleVotes] = useState()
-const [isLoading, setIsLoading] = useState(true)
 const [err, setErr] = useState(null);
 
+const [articleComments, setArticleComments] = useState([])
+const [newComment, setNewComment] = useState("")
+const [commentCounter, setCommentCounter] = useState(0)
 const [isThumbUp, setisThumbUp] = useState()
 const [voteButtonIsSelected, setVoteButtonIsSelected] = useState({
     thumbUp: "unselected",
@@ -20,16 +22,50 @@ useEffect(()=>{
     .then(({article})=>{
         setSelectedArticle(article)
         setArticleVotes(+article.votes)
+        })
+}, [articleId])
+useEffect(()=>{
+    getCommentsByArticleID(articleId)
+    .then(({comments})=>{
+        setArticleComments(comments)
     })
     setIsLoading(false)
-}, [articleId])
 
+},[articleId, commentCounter])
+
+if(isLoading){
+    return (<h3>Give me a second... for christ sake...</h3>)
+    
+}
 const setVotes = (userThumb)=>{
     setArticleVotes(articleVotes + userThumb)
     UpdatevoteByCommentId(articleId, userThumb)
     .catch((err)=>{
         selectedArticle(articleVotes - userThumb)
     })
+}
+
+const handleNewCommentChange = (event)=>{
+    setNewComment(event.target.value)
+}
+const handleCommentSubmit = (event) =>{
+    event.preventDefault()
+
+    const newCommentSubmit = {
+        comment_id: "new",
+        body: newComment,
+        username: user,
+        created_at: "Just Now",
+        votes: 0
+    }
+    setArticleComments([...articleComments, newCommentSubmit])
+    addCommentbyArticleId(articleId, user, newComment).then(()=>{
+        setCommentCounter(commentCounter+1)
+    })
+    .catch((err)=>{
+        setErr("This shoddy thing's gone and broke...")
+    })
+
 }
 
 const handleArticleVoteChange = (event) => {
@@ -91,10 +127,14 @@ const handleArticleVoteChange = (event) => {
             }
         }
 }
-    
-    if(isLoading){
-        return (<h3>Give me a second... for christ sake...</h3>)
-    }
+if(isLoading){
+    return (
+        <>
+        <img className="loader" src="/src/assets/BusinessAdam.png" alt="" />
+        <h3>Give me a second... for christ sake...</h3>
+        </>
+    )
+}
     return (
         <>
             <article >
@@ -114,8 +154,7 @@ const handleArticleVoteChange = (event) => {
                     <img src={selectedArticle.article_img_url} alt={selectedArticle.title} />
                 </div>
             </article>
-            <Comments err={err} setErr={setErr} user={user} isLoading={isLoading} setIsLoading={setIsLoading}/>
-         
+           {<Comments err={err} setErr={setErr} user={user} isLoading={isLoading} setIsLoading={setIsLoading}/>}
         </>
 )
 }
