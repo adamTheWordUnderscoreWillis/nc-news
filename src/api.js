@@ -2,13 +2,20 @@
 import axios from "axios";
 
 
+
+
 const newsApi = axios.create({
     baseURL: "https://adam-willis-cool-news-hub.onrender.com",
 });
 
-export const GetArticles = (topic)=> {
+export const GetArticles = (topic, sort_by, order)=> {
+
     return newsApi
-    .get("/api/articles", {params: {topic : topic}})
+    .get("/api/articles", {params: {
+        topic : topic,
+        sort_by: sort_by,
+        order: order
+    }})
     .then(({data})=>{
         return data;
     })

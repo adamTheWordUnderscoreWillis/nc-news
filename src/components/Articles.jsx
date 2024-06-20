@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react"
 import { GetArticles } from "../api"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams} from "react-router-dom"
 
 
-const Articles =({isLoading, setIsLoading})=>{
+const Articles =({isLoading, setIsLoading, searchParams})=>{
 
 const [articles, setArticles] = useState([])
 const  {topic} = useParams()
+const sortBy = searchParams.get("sort_by")
+const orderBy = searchParams.get("order")
 useEffect(()=>{
     setIsLoading(true)
-    GetArticles(topic).then(({articles})=>{
+    GetArticles(topic, sortBy, orderBy).then(({articles})=>{
         setArticles(articles);
-        setIsLoading(false);
+        setIsLoading(false);    
         })
-}, [topic])
+}, [topic, sortBy, orderBy])
 
 if(isLoading){
     
