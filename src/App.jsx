@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Articles from './components/Articles';
 import ArticleById from './components/ArticleById';
 import User from './components/User';
+import { Nav } from './components/Nav';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   return (
     <>
       <Header/>
+      <Nav/>
       <Routes>
       <Route path="/" element={<Articles isLoading={isLoading} setIsLoading={setIsLoading} />} />
       <Route path="/articles/:articleId" element={<ArticleById user={user} isLoading={isLoading} setIsLoading={setIsLoading}/>} />
