@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import { Routes, Route, useSearchParams } from 'react-router-dom';
 import Header from './components/Header';

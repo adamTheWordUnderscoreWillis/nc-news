@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { GetAllTopics } from "../api"
 import { Link} from "react-router-dom"
+import Dropdown from 'react-bootstrap/Dropdown';
 
 export const Nav = ({searchParams,setSearchParams})=>{
     const [allTopics, setAllTopics] = useState([])

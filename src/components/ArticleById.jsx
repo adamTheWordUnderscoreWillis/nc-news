@@ -42,7 +42,7 @@ if(isWrongArticle){
     
     return (
     <div className="errorCard">
-        <img className="madAdam" src="/src/assets/grumpyAdam.png" alt="Adam's face but he's angry because you broke something" />
+        <img className="madAdam" src="/images/grumpyAdam.png" alt="Adam's face but he's angry because you broke something" />
         <h3>{isWrongArticle}</h3>
     </div>
 )
@@ -57,29 +57,6 @@ const setVotes = (userThumb)=>{
     .catch((err)=>{
         selectedArticle(articleVotes - userThumb)
     })
-}
-
-const handleNewCommentChange = (event)=>{
-    setNewComment(event.target.value)
-}
-const handleCommentSubmit = (event) =>{
-    event.preventDefault()
-
-    const newCommentSubmit = {
-        comment_id: "new",
-        body: newComment,
-        username: user,
-        created_at: "Just Now",
-        votes: 0
-    }
-    setArticleComments([...articleComments, newCommentSubmit])
-    addCommentbyArticleId(articleId, user, newComment).then(()=>{
-        setCommentCounter(commentCounter+1)
-    })
-    .catch((err)=>{
-        setErr("This shoddy thing's gone and broke...")
-    })
-
 }
 
 const handleArticleVoteChange = (event) => {
@@ -144,30 +121,27 @@ const handleArticleVoteChange = (event) => {
 if(isLoading){
     return (
         <>
-        <img className="loader" src="/src/assets/BusinessAdam.png" alt="" />
+        <img className="loader" src="/images/BusinessAdam.png" alt="" />
         <h3>Give me a second... for christ sake...</h3>
         </>
     )
 }
     return (
         <>
+                    <h2 className="articleTitle">{selectedArticle.title}</h2>
             <article >
-                <div className="articleItem">
-                    <h2>{selectedArticle.title}</h2>
                     <h3> by {selectedArticle.author}</h3>
                     <h4>{selectedArticle.topic}</h4>
-                <p>{selectedArticle.body}</p>
+                    <img src={selectedArticle.article_img_url} alt={selectedArticle.title} />
+                    <p>{selectedArticle.body}</p>
+            </article>
                 <div className="voting">
                     <button className={voteButtonIsSelected.thumbUp} onClick={handleArticleVoteChange} value="1">👍</button>
                     <button className={voteButtonIsSelected.thumbDown} onClick={handleArticleVoteChange} value="-1">👎</button>
                     <p>votes: {articleVotes}</p>
-                </div>
+               
 
                 </div>
-                <div className="articleItem">
-                    <img src={selectedArticle.article_img_url} alt={selectedArticle.title} />
-                </div>
-            </article>
            {<Comments err={err} setErr={setErr} user={user} isLoading={isLoading} setIsLoading={setIsLoading}/>}
         </>
 )
