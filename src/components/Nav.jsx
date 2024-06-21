@@ -22,8 +22,8 @@ export const Nav = ({searchParams,setSearchParams})=>{
         else if(sort_by === "created_at"){
             setOrderDropdownLabels(
                 {
-                    ASC:"Recent",
-                    DESC: "Ancient"}
+                    ASC:"Most Recent",
+                    DESC: "Most Ancient"}
             )
         }
         if(!sort_by || sort_by === "votes"){
@@ -33,11 +33,11 @@ export const Nav = ({searchParams,setSearchParams})=>{
                     DESC: "Most hated"}
             )
         }
-        if(!sort_by || sort_by === "comment_count"){
+        if(!sort_by || sort_by === "count"){
             setOrderDropdownLabels(
                 {
-                    ASC:"Top comments",
-                    DESC: "Most silent"}
+                    ASC:"Most comments",
+                    DESC: "Least Comments"}
             )
         }
         
@@ -70,12 +70,13 @@ export const Nav = ({searchParams,setSearchParams})=>{
                         <Link key={topic.slug} to={`/${topic.slug}`}>{topic.slug}</Link>
                 )
             })}
+
             <select onChange={setSortBy} name="searchCriteria" id="">
                 <option disabled>Sort By</option>  
                 <option value="articles.article_id">Adam's picks</option>  
                 <option value="created_at">Date</option>  
                 <option value="votes">Votes</option>
-                <option value="comment_count">Top Comments</option>  
+                <option value="count">Top Comments</option>  
             </select>
             <select onChange={setSortOrder} name="order" id="">
                 <option value="" disabled>Order</option>  

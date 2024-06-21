@@ -6,6 +6,7 @@ const ArticleById =({user, isLoading, setIsLoading})=>{
 const [selectedArticle , setSelectedArticle] = useState("")
 const [articleVotes, setArticleVotes] = useState()
 const [err, setErr] = useState(null);
+const [isWrongArticle, setIsWrongArticle]= useState()
 
 const [articleComments, setArticleComments] = useState([])
 const [newComment, setNewComment] = useState("")
@@ -27,12 +28,25 @@ useEffect(()=>{
 useEffect(()=>{
     getCommentsByArticleID(articleId)
     .then(({comments})=>{
+        setIsWrongArticle(); 
         setArticleComments(comments)
+        setIsLoading(false)
     })
-    setIsLoading(false)
+    .catch(({response})=>{
+        setIsWrongArticle(response.data.msg)
+    })
 
 },[articleId, commentCounter])
 
+if(isWrongArticle){
+    
+    return (
+    <div className="errorCard">
+        <img className="madAdam" src="/src/assets/grumpyAdam.png" alt="Adam's face but he's angry because you broke something" />
+        <h3>{isWrongArticle}</h3>
+    </div>
+)
+}
 if(isLoading){
     return (<h3>Give me a second... for christ sake...</h3>)
     

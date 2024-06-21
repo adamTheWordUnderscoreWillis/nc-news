@@ -145,3 +145,12 @@ margin-left: 40px;
 .deleteButton{
   
 }
+.madAdam {
+  flex: auto;
+  max-width: 4VW;
+}
+.errorCard {
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+}

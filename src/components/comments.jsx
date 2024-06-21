@@ -68,8 +68,8 @@ export const Comments = ({err, setErr, user, isLoading, setIsLoading})=>{
                 </>
             )
         }
-    return (
-    <div>
+        return (
+            <div>
         
         <form onSubmit={handleCommentSubmit}>
         <p className="Error">{err}</p>

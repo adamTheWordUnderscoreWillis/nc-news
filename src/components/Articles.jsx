@@ -6,18 +6,33 @@ import { Link, useParams} from "react-router-dom"
 const Articles =({isLoading, setIsLoading, searchParams})=>{
 
 const [articles, setArticles] = useState([])
+const [isWrongTopic, setIsWrongTopic] = useState()
 const  {topic} = useParams()
 const sortBy = searchParams.get("sort_by")
 const orderBy = searchParams.get("order")
 useEffect(()=>{
     setIsLoading(true)
-    GetArticles(topic, sortBy, orderBy).then(({articles})=>{
+    GetArticles(topic, sortBy, orderBy)
+    .then(({articles})=>{
+        setIsWrongTopic();
         setArticles(articles);
-        setIsLoading(false);    
-        })
+        setIsLoading(false);   
+    })
+    .catch(({response})=>{
+        setIsWrongTopic(response.data.msg);
+    })  
 }, [topic, sortBy, orderBy])
 
-if(isLoading){
+if(isWrongTopic){
+    
+    return (
+    <div className="errorCard">
+        <img className="madAdam" src="/src/assets/grumpyAdam.png" alt="Adam's face but he's angry because you broke something" />
+        <h3>{isWrongTopic}</h3>
+    </div>
+)
+}
+else if(isLoading){
     
     return (
     <>
@@ -42,7 +57,6 @@ if(isLoading){
                         
                     </Link>
                     )
-
                 })
                 }
             </section>

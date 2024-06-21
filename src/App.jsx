@@ -6,6 +6,7 @@ import Articles from './components/Articles';
 import ArticleById from './components/ArticleById';
 import User from './components/User';
 import { Nav } from './components/Nav';
+import { ErrorPage } from './components/ErrorPage';
 
 function App() {
   const [user, setUser] = useState("grumpy19")
@@ -21,6 +22,7 @@ function App() {
       <Route path="/:topic" element={<Articles isLoading={isLoading} setIsLoading={setIsLoading} searchParams={searchParams}/>} />
       <Route path="/articles/:articleId" element={<ArticleById user={user} isLoading={isLoading} setIsLoading={setIsLoading}/>} />
       <Route path="/profile/:user" element={<User/>} />
+      <Route path="*" element={<ErrorPage user={user}/>} />
 
       </Routes>
     </>
