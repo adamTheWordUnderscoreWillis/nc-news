@@ -2,6 +2,11 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { GetArticleById, UpdatevoteByCommentId, addCommentbyArticleId, getCommentsByArticleID } from "../api"
 import { Comments } from "./comments"
+import Image from 'react-bootstrap/Image';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Badge from 'react-bootstrap/Badge';
 const ArticleById =({user, isLoading, setIsLoading})=>{
 const [selectedArticle , setSelectedArticle] = useState("")
 const [articleVotes, setArticleVotes] = useState()
@@ -128,20 +133,39 @@ if(isLoading){
 }
     return (
         <>
-                    <h2 className="articleTitle">{selectedArticle.title}</h2>
-            <article >
-                    <h3> by {selectedArticle.author}</h3>
-                    <h4>{selectedArticle.topic}</h4>
-                    <img src={selectedArticle.article_img_url} alt={selectedArticle.title} />
-                    <p>{selectedArticle.body}</p>
-            </article>
-                <div className="voting">
-                    <button className={voteButtonIsSelected.thumbUp} onClick={handleArticleVoteChange} value="1">👍</button>
-                    <button className={voteButtonIsSelected.thumbDown} onClick={handleArticleVoteChange} value="-1">👎</button>
-                    <p>votes: {articleVotes}</p>
+            <Container >
+                <Row>
+                    <Col>
+                    <h1>{selectedArticle.title}</h1>
+                    <h2> by {selectedArticle.author}</h2>
+                    </Col>
+                    <Col >
+                    <Image id="articleImage" src={selectedArticle.article_img_url} fluid />
+                    <p className="topicTag">{selectedArticle.topic}</p>
+                    </Col>
+                </Row>
+                <Row id="articleHeader">
+                    <Col>
+                    <p className="articleText">{selectedArticle.body}</p>
+                    </Col>
+
+                </Row>
+            </Container>
+                <Container >
+                    <Row className="voting">
+                        <Col>
+                        <Badge size="lg" bg="danger">Votes: {articleVotes}</Badge>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                    <button id="thumbUp" className={voteButtonIsSelected.thumbUp} onClick={handleArticleVoteChange} value="1">👍</button>
+                    <button id="thumbDown" className={voteButtonIsSelected.thumbDown} onClick={handleArticleVoteChange} value="-1">👎</button>
+                        </Col>
+                    </Row>
                
 
-                </div>
+                </Container>
            {<Comments err={err} setErr={setErr} user={user} isLoading={isLoading} setIsLoading={setIsLoading}/>}
         </>
 )
