@@ -6,7 +6,7 @@ import Header from './components/Header';
 import Articles from './components/Articles';
 import ArticleById from './components/ArticleById';
 import User from './components/User';
-import { Nav } from './components/Nav';
+import { Navigator } from './components/Nav';
 import { ErrorPage } from './components/ErrorPage';
 
 function App() {
@@ -16,8 +16,7 @@ function App() {
 
   return (
     <>
-      <Header/>
-      <Nav searchParams= {searchParams} setSearchParams= {setSearchParams}/>
+      <Navigator searchParams= {searchParams} setSearchParams= {setSearchParams}/>
       <Routes>
       <Route path="/" element={<Articles isLoading={isLoading} setIsLoading={setIsLoading} searchParams={searchParams}/>} />
       <Route path="/:topic" element={<Articles isLoading={isLoading} setIsLoading={setIsLoading} searchParams={searchParams}/>} />

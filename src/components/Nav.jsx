@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
 import { GetAllTopics } from "../api"
 import { Link} from "react-router-dom"
-import Dropdown from 'react-bootstrap/Dropdown';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-export const Nav = ({searchParams,setSearchParams})=>{
+export const Navigator = ({searchParams,setSearchParams})=>{
     const [allTopics, setAllTopics] = useState([])
     const [orderDropdownLabels, setOrderDropdownLabels] = useState({
         ASC: "Hot",
@@ -49,14 +52,14 @@ export const Nav = ({searchParams,setSearchParams})=>{
             setAllTopics(topics)
         })
     }, [])
-    const setSortOrder = (event) => {
-        const direction = event.target.value
+    const setSortOrder = (selectedKey) => {
+        const direction = selectedKey
         const newParams = new URLSearchParams(searchParams);
         newParams.set('order', direction);
         setSearchParams(newParams);
       };
-      const setSortBy = (event) => {
-        const category = event.target.value
+      const setSortBy = (selectedKey) => {
+        const category = selectedKey
         const newParams = new URLSearchParams(searchParams);
         newParams.set('sort_by', category);
         setSearchParams(newParams);
@@ -64,27 +67,38 @@ export const Nav = ({searchParams,setSearchParams})=>{
       
 
     return(
-        <nav>
-            <Link key="home"to="/">Home</Link>
-            {allTopics.map((topic)=>{
+        <Navbar expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
+        <Container>
+        <Navbar.Brand href="/">
+              <img
+                alt=""
+                src="/images/branding.png"
+                height="30"
+                className="d-inline-block align-top"
+            />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+            <Nav.Link key="home" href="/">home</Nav.Link>
+        {allTopics.map((topic)=>{
                 return(
-                        <Link key={topic.slug} to={`/${topic.slug}`}>{topic.slug}</Link>
+                        <Nav.Link key={topic.slug} href={`/${topic.slug}`}>{topic.slug}</Nav.Link>
                 )
             })}
-
-            <select onChange={setSortBy} name="searchCriteria" id="">
-                <option disabled>Sort By</option>  
-                <option value="articles.article_id">Adam's picks</option>  
-                <option value="created_at">Date</option>  
-                <option value="votes">Votes</option>
-                <option value="count">Top Comments</option>  
-            </select>
-            <select onChange={setSortOrder} name="order" id="">
-                <option value="" disabled>Order</option>  
-                <option value={"DESC"}>{orderDropdownLabels.ASC}</option>  
-                <option value={"ASC"}>{orderDropdownLabels.DESC}</option>  
-            </select>
-            
-        </nav>
+              <NavDropdown title="sort by" id="sort by" activeKey={"articles.article_id"} onSelect={setSortBy}>
+                <NavDropdown.Item eventKey={"articles.article_id"}>Adam's Picks</NavDropdown.Item>
+                <NavDropdown.Item eventKey={"created_at"}>Date</NavDropdown.Item>
+                <NavDropdown.Item eventKey={"votes"}>Votes</NavDropdown.Item>
+                <NavDropdown.Item eventKey={"count"}>Top Comments</NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title="order" id="order" activeKey={"DESC"} onSelect={setSortOrder}>
+                <NavDropdown.Item eventKey={"DESC"}>{orderDropdownLabels.ASC}</NavDropdown.Item>
+                <NavDropdown.Item eventKey={"ASC"}>{orderDropdownLabels.DESC}</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     )
 }
